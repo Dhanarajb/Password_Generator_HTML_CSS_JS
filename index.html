@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Password Generator</h2>
+      <input type="text" id="password" readonly />
+      <br />
+      <label
+        >Password Length :
+        <input type="number" id="length" value="12" min="6" max="20"
+      /></label>
+      <br />
+      <input type="checkbox" id="uppercase" checked /> Uppercase Letters<br />
+      <input type="checkbox" id="lowercase" checked /> Lowercase Letters<br />
+      <input type="checkbox" id="numbers" checked /> Numbers<br />
+      <input type="checkbox" id="symbols" checked /> Symbols<br />
+      <br />
+      <button onclick="generatePassword()">Generate Password</button>
+    </div>
+    <script>
+      function generatePassword() {
+        const length = document.getElementById("length").value;
+        const useUpper = document.getElementById("uppercase").checked;
+        const useLower = document.getElementById("lowercase").checked;
+        const useNumber = document.getElementById("numbers").checked;
+        const useSymbol = document.getElementById("symbols").checked;
+
+        const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const lowerCase = "abcdefghijklmnopqrstuvwxyz";
+        const number = "0123456789";
+        const symbol = "!@#$%^&*()_+";
+
+        let characters = "";
+        if (useUpper) characters += upperCase;
+        if (useLower) characters += lowerCase;
+        if (useNumber) characters += number;
+        if (useSymbol) characters += symbol;
+
+        if (characters.length === 0) {
+          alert("Please select at least one character type.");
+          return;
+        }
+        let password = "";
+        for (let i = 0; i < length; i++) {
+          password += characters.charAt(
+            Math.floor(Math.random() * characters.length)
+          );
+        }
+        document.getElementById("password").value = password;
+      }
+    </script>
+  </body>
+</html>
